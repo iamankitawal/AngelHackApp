@@ -1,3 +1,8 @@
 <resources>
     <string name="app_name">AngelHackApp</string>
+    <string name="title_activity_nav_drawer">NavDrawerActivity</string>
+    <string name="title_activity_login">LoginActivity</string>
+    <string name="facebook_app_id">720276364779051</string>
+    <string name="title_activity_logout">LogoutActivity</string>
+    <string name="title_activity_my_profile">MyProfileActivity</string>
 </resources>
