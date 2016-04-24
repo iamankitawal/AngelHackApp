@@ -37,7 +37,20 @@
         <activity
             android:name=".Activity.Application.MyProfileActivity"
             android:label="@string/title_activity_my_profile"
-            android:theme="@style/AppTheme.NoActionBar"></activity>
+            android:theme="@style/AppTheme.NoActionBar" />
+        <activity
+            android:name=".Activity.Application.MarketActivity"
+            android:label="@string/title_activity_market"
+            android:theme="@style/AppTheme.NoActionBar" />
+        <activity
+            android:name=".Activity.Application.InvestmentActivity"
+            android:label="@string/title_activity_investment"
+            android:parentActivityName=".Activity.Application.MarketActivity"
+            android:theme="@style/AppTheme.NoActionBar">
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value="com.example.root.angelhackapp.Activity.Application.MarketActivity" />
+        </activity>
     </application>
 
 </manifest>

@@ -4,6 +4,8 @@
     <modules>
       <module fileurl="file://$PROJECT_DIR$/AngelHack.iml" filepath="$PROJECT_DIR$/AngelHack.iml" />
       <module fileurl="file://$PROJECT_DIR$/app/app.iml" filepath="$PROJECT_DIR$/app/app.iml" />
+      <module fileurl="file://$PROJECT_DIR$/facebook-android-sdk-4.11.0/facebook-android-sdk-4.11.0.iml" filepath="$PROJECT_DIR$/facebook-android-sdk-4.11.0/facebook-android-sdk-4.11.0.iml" />
+      <module fileurl="file://$PROJECT_DIR$/volley/volley.iml" filepath="$PROJECT_DIR$/volley/volley.iml" />
     </modules>
   </component>
 </project>

@@ -2,6 +2,7 @@ package com.example.root.angelhackapp.Activity.Application;
 
 import android.app.Activity;
 import android.app.ProgressDialog;
+import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
@@ -11,6 +12,7 @@ import android.widget.Toast;
 
 import com.example.root.angelhackapp.Activity.Managers.PrefUtils;
 import com.example.root.angelhackapp.Activity.Model.User;
+import com.example.root.angelhackapp.Activity.Utils.Constants;
 import com.example.root.angelhackapp.R;
 import com.facebook.CallbackManager;
 import com.facebook.FacebookCallback;
@@ -25,27 +27,22 @@ import org.json.JSONObject;
 public class LoginActivity extends Activity {
     private CallbackManager callbackManager;
     private LoginButton loginButton;
-    private TextView btnLogin;
+//    private TextView btnLogin;
     private ProgressDialog progressDialog;
     User user;
-
+    private static final String TAG="LoginActivity";
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_login);
-
         if(PrefUtils.getCurrentUser(LoginActivity.this) != null){
-
-            Intent homeIntent = new Intent(LoginActivity.this, LogoutActivity.class);
-
+            Intent homeIntent = new Intent(LoginActivity.this,MyProfileActivity.class);
             startActivity(homeIntent);
-
             finish();
         }
         callbackManager=CallbackManager.Factory.create();
-
         loginButton= (LoginButton)findViewById(R.id.login_button);
-        loginButton.setReadPermissions("public_profile", "email", "user_friends");
+        loginButton.setReadPermissions(Constants.getPermList());
         loginButton.registerCallback(callbackManager, mCallBack);
     }
 
@@ -88,8 +85,6 @@ public class LoginActivity extends Activity {
         super.onActivityResult(requestCode, resultCode, data);
         callbackManager.onActivityResult(requestCode, resultCode, data);
     }
-
-
     private FacebookCallback<LoginResult> mCallBack = new FacebookCallback<LoginResult>() {
         @Override
         public void onSuccess(LoginResult loginResult) {
@@ -112,13 +107,16 @@ public class LoginActivity extends Activity {
                                 user.email = object.getString("email").toString();
                                 user.name = object.getString("name").toString();
                                 user.gender = object.getString("gender").toString();
-                                PrefUtils.setCurrentUser(user,LoginActivity.this);
-
+                               // user.about=object.getString("about").toString();
+                                //user.homeTown=object.getString("hometown").toString();
+                                user.imageUrl=object.getJSONObject("picture").getJSONObject("data").getString("url").toString();
+                                PrefUtils.setCurrentUser(user,getApplicationContext());
+                                Log.i(TAG,getApplicationContext().toString());
                             }catch (Exception e){
                                 e.printStackTrace();
                             }
                             Toast.makeText(LoginActivity.this, "welcome " + user.name, Toast.LENGTH_LONG).show();
-                            Intent intent=new Intent(LoginActivity.this,LogoutActivity.class);
+                            Intent intent=new Intent(LoginActivity.this,MyProfileActivity.class);
                             startActivity(intent);
                             finish();
 
@@ -127,7 +125,7 @@ public class LoginActivity extends Activity {
                     });
 
             Bundle parameters = new Bundle();
-            parameters.putString("fields", "id,name,email,gender, birthday");
+            parameters.putString("fields", "id,name,email,gender,birthday,picture,hometown");
             request.setParameters(parameters);
             request.executeAsync();
         }
